@@ -16,8 +16,8 @@ module Starcraft
 
     def full_data(name, id, realm, *url)
       data = JSON.parse(RestClient.get("https://us.api.battle.net/sc2/profile/#{id}/#{realm}/#{name}/?locale=en_US&apikey=u6asyvg57kuru6gbsu37wxbmfd4djv9y").body)
-      ggtracker = Starcraft::GGTracker.new
-      ggtracker.bnet(name, id, realm)
+      # ggtracker = Starcraft::GGTracker.new
+      # ggtracker.bnet(name, id, realm)
       @display_name = data['displayName']
       @id = data['id']
       @realm = data['realm']
@@ -33,8 +33,9 @@ module Starcraft
       @achievements = data['achievements']
       @ggtracker = ggtracker
       @ladders = nil
-      p data
     end
+
+    
 
     def get_ladders
       @ladders = basic_ladder_data

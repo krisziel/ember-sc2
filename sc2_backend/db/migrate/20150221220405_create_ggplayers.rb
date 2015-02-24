@@ -19,6 +19,7 @@ class CreateGgplayers < ActiveRecord::Migration
       t.integer :season_games
       t.integer :career_games
       t.integer :apm
+      t.integer :bnetid
       t.string :portrait
       t.timestamps
     end

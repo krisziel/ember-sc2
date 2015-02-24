@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223175147) do
+ActiveRecord::Schema.define(version: 20150224224918) do
 
   create_table "clans", force: true do |t|
     t.string   "name"
@@ -40,9 +40,11 @@ ActiveRecord::Schema.define(version: 20150223175147) do
     t.integer  "season_games"
     t.integer  "career_games"
     t.integer  "apm"
+    t.integer  "bnetid"
     t.string   "portrait"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "ggsiteid"
   end
 
   create_table "ladders", force: true do |t|
@@ -59,17 +61,17 @@ ActiveRecord::Schema.define(version: 20150223175147) do
     t.string   "name"
     t.integer  "bnet_id"
     t.integer  "ggsiteid"
-    t.integer  "ggtracker_id"
+    t.integer  "ggplayer_id"
     t.string   "highest_solo"
     t.string   "highest_team"
     t.integer  "terran_level"
     t.integer  "protoss_level"
     t.integer  "zerg_level"
     t.string   "region"
+    t.text     "career"
+    t.text     "season"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "career"
-    t.string   "season"
   end
 
   create_table "team_members", force: true do |t|

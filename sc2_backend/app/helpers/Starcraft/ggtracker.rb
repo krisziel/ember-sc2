@@ -72,4 +72,5 @@ module Starcraft
     end
 
   end
+
 end
