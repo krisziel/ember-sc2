@@ -1,14 +1,11 @@
 require 'rails_helper'
 
-describe 'user request#' do
+describe 'Player#' do
 
-  xit 'expects to be logged out' do
-    post '/user/autologin',
-    {
-      game_id:1
-    }
-    login = JSON.parse(response.body)
-    expect(login["status"]).to eq('loggedout')
+  it 'Save player and then load it' do
+    get '/player/profile/lIBARCODEIl/1/6117903/add'
+    player = JSON.parse(response.body)["player"]
+    expect(player["name"]).to eq("lIBARCODEIl")
   end
 
 end
