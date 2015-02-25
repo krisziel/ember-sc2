@@ -79,7 +79,7 @@ module StarcraftApi
         :matches_count => data['matches_count'],
         :hours_played => data['hours_played'],
         :most_played_race => data['most_played_race'],
-        :highest_league_type => data['current_highest_type'],
+        :highest_league_type => data['current_highest_league'],
         :highest_league_rank => data['current_highest_leaguerank'],
         :solo_league => data['current_league_1v1'],
         :solo_rank => data['current_rank_1v1'],
