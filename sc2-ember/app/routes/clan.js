@@ -9,7 +9,9 @@ export default Ember.Route.extend({
       }
       var rank = function(rank){
         var r = "100";
-        if(rank > 25) {
+        if(rank > 50) {
+          r = "100";
+        } else if(rank > 25) {
           r = "50";
         } else if(rank > 8) {
           r = "25";

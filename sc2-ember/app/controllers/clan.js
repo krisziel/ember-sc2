@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
       $('.player-row').removeClass('active');
       $('.player-row[name="' + player.name.toLowerCase() + '"]').addClass('active');
       $('#memberColumn').addClass('left');
+      setTimeout(function(){ $('.player-window').css({display:'inherit'}); },500);
     }
   }
 });

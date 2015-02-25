@@ -1,3 +1,13 @@
-Player
-{{name}}
+<h1 class="ui header center aligned">[{{model.clanTag}}] {{model.name}}</h1>
+<div class="top-leagues">
+  {{#each league in model.ggplayer.top}}
+    <div class="top-league">
+      {{#if league.rank}}
+        <h1 class="ui header center aligned league-type" style="margin-bottom: 3px;">{{league.type}}</h1>
+        <div class="league league-big" {{bind-attr league=league.league rank=league.rank_range}}></div>
+        <h3 class="ui header center aligned">Rank {{league.rank}}</h3>
+      {{/if}}
+    </div>
+  {{/each}}
+</div>
 {{outlet}}
