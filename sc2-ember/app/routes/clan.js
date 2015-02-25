@@ -4,7 +4,7 @@ export default Ember.Route.extend({
   model:function(params){
     return Ember.$.getJSON('http://localhost:3000/clan/' + params.tag).then(function(response){
       var league = function(league){
-        var leagues = ["grandmaster","master","diamond","platinum","gold","silver","bronze"];
+        var leagues = ["bronze","silver","gold","platinum","diamond","master","grandmaster"];
         return leagues[league];
       }
       var rank = function(rank){
@@ -28,6 +28,7 @@ export default Ember.Route.extend({
         player['ggplayer']['most_played_race'] = race[player['ggplayer']['most_played_race']];
         player['highest_league_type'] = league(player.ggplayer.highest_league_type);
         player['highest_league_rank'] = rank(player.ggplayer.highest_league_rank);
+        player['lowercasename'] = player['name'].toLowerCase();
       });
       return {
         tag:response.clan[0],
@@ -35,5 +36,16 @@ export default Ember.Route.extend({
         players:players
       };
     });
+  },
+  actions:{
+    searchMembers:function(){
+      var query = $('#memberSearch').val().toLowerCase();
+      if(query.length > 0) {
+        $('.player-row').css({display:'none'});
+        $('.player-row[name*="' + query + '"]').css({display:'block'});
+      } else {
+        $('.player-row').css({display:'block'});
+      }
+    }
   }
 });

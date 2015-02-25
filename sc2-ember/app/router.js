@@ -7,7 +7,7 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.resource('clan', {path:'/:tag'}, function() {
-    this.route('player',{path:':player'});
+    this.route('player',{path:'/:player'});
   });
 });
 

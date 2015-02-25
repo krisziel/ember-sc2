@@ -13,11 +13,46 @@
 .player-row {
   padding: 8px 5px !important;
 }
+.player-row.active {
+  background: rgba(39, 41, 43, 0.15);
+}
 .player-row .header {
   font-size: 18px;
-  margin: 6px 0 !important;
+  margin: 12px 0 0 0 !important;
 }
-
+.player-row .description {
+  font-size: 14px;
+  margin: 20px 0 0 0 !important;
+  float: left;
+}
+#memberList {
+  border: 1px solid rgba(39, 41, 43, 0.15);
+  padding: 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  overflow: auto;
+}
+#memberSearch {
+  width: 100%;
+}
+#memberColumn {
+  margin-left: 31.25%;
+  transition: all 500ms;
+}
+#memberColumn.left {
+  margin-left: 0;
+}
+.player-window {
+  border: 1px solid rgba(39, 41, 43, 0.15);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
 
 /* league icons */
 .league {
