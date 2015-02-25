@@ -4,10 +4,6 @@ module Starcraft
   class Nios
     attr_accessor :tag, :name, :html, :members
 
-    def initialize
-
-    end
-
     def clan tag
       @tag = tag
       request = RestClient.get("http://nios.kr/sc2/us/clan/detail/#{tag}", :user_agent => 'Chrome')
@@ -30,9 +26,6 @@ module Starcraft
         :realm => parts[-2],
         :id => parts[-3]
       }
-    end
-
-    def get_data
     end
 
     def get_profiles

@@ -37,7 +37,7 @@ module StarcraftApi
       if players.length == 0
         full_data(name,bnetid,realm)
         ggplayer = Ggplayer.where(bnetid:bnetid)[0]
-        save_player = Player.new(ggplayer_id:ggtracker,name:@display_name,bnet_id:@id,region:@realm,career:@career.to_json,season:@season.to_json,highest_solo:@career["highest1v1Rank"],highest_team:@career["highestTeamRank"],terran_level:@swarm_levels["terran"]["level"],zerg_level:@swarm_levels["zerg"]["level"],protoss_level:@swarm_levels["protoss"]["level"])
+        save_player = Player.new(ggplayer_id:ggtracker,clan_tag:@clan_tag,name:@display_name,bnet_id:@id,region:@realm,career:@career.to_json,season:@season.to_json,highest_solo:@career["highest1v1Rank"],highest_team:@career["highestTeamRank"],terran_level:@swarm_levels["terran"]["level"],zerg_level:@swarm_levels["zerg"]["level"],protoss_level:@swarm_levels["protoss"]["level"])
         save_player.save
         player = save_player
         ggplayer.update(player_id:player.id)
@@ -45,7 +45,7 @@ module StarcraftApi
         full_data(name,bnetid,realm)
         ggplayer = Ggplayer.where(bnetid:bnetid)[0]
         player = players[0]
-        update_player = player.update(ggplayer_id:ggtracker,career:@career.to_json,season:@season.to_json,highest_solo:@career["highest1v1Rank"],highest_team:@career["highestTeamRank"],terran_level:@swarm_levels["terran"]["level"],zerg_level:@swarm_levels["zerg"]["level"],protoss_level:@swarm_levels["protoss"]["level"])
+        update_player = player.update(career:@career.to_json,season:@season.to_json,highest_solo:@career["highest1v1Rank"],highest_team:@career["highestTeamRank"],terran_level:@swarm_levels["terran"]["level"],zerg_level:@swarm_levels["zerg"]["level"],protoss_level:@swarm_levels["protoss"]["level"])
         update_player.save
         player = update_player
         ggplayer.update(player_id:player.id)
@@ -65,77 +65,15 @@ module StarcraftApi
 
   class StarcraftGGTracker
     attr_accessor :leagues, :id, :name, :gateway, :matches_count, :hours_players, :race, :league_highest, :league_1v1, :league_2v2, :league_3v3, :league_4v4, :points, :season_games, :career_games, :apm
-    @leagues = {
-      0 => "bronze",
-      1 => "silver",
-      2 => "gold",
-      3 => "platinum",
-      4 => "diamond",
-      5 => "master",
-      6 => "grandmaster"
-    }
-
-    def ggid id
-      data = JSON.parse(RestClient.get("http://api.ggtracker.com/api/v1/identities/#{id}.json"))
-      data
-      if data['name']
-        gg_profile = get_identity data
-      end
-      gg_profile
-    end
 
     def bnet(name, id, realm)
       data = JSON.parse(RestClient.get("http://api.ggtracker.com/api/v1/identities/find.json?profile_url=http://us.battle.net/sc2/en/profile/#{id}/#{realm}/#{name}/").body)
       data
     end
 
-    def get_identity data
-      @leagues = ["bronze","silver","gold","platinum","diamond","master","grandmaster"]
-      @id = data['id']
-      @name = data['name']
-      @gateway = data['gateway']
-      @matches_count = data['matches_count']
-      @hours_played = data['hours_played'].round
-      @race = data['most_played_race']
-      if data['current_highest_type']
-        @league_highest = {
-          :type => data['current_highest_type'],
-          :league => @leagues[data['current_highest_league']],
-          :rank => data['current_highest_leaguerank']
-        }
-      end
-      if data['current_league_1v1']
-        @league_1v1 = {
-          :league => @leagues[data['current_league_1v1']],
-          :rank => data['current_rank_1v1']
-        }
-      end
-      if data['current_league_2v2']
-        @league_2v2 = {
-          :league => @leagues[data['current_league_2v2']],
-          :rank => data['current_rank_2v2']
-        }
-      end
-      if data['current_league_3v3']
-        @league_3v3 = {
-          :league => @leagues[data['current_league_3v3']],
-          :rank => data['current_rank_3v3']
-        }
-      end
-      if data['current_league_4v4']
-        @league_4v4 = {
-          :league => @leagues[data['current_league_4v4']],
-          :rank => data['current_rank_4v4']
-        }
-      end
-      @points = data['achievement_points']
-      @season_games = data['season_games']
-      @career_games = data['career_games']
-      @apm = data['stats']['apm']['avg'].round
-    end
-
     def save_player(name, id, realm)
       data = StarcraftApi::StarcraftGGTracker.new.bnet(name, id, realm)
+      data['stats']['apm']['avg'] ? data['stats']['apm']['avg'].round : nil
       gg_data = {
         :ggsiteid => data['id'],
         :matches_count => data['matches_count'],
@@ -154,7 +92,7 @@ module StarcraftApi
         :achievement_points => data['achievement_points'],
         :season_games => data['season_games'],
         :career_games => data['career_games'],
-        :apm => data['stats']['apm']['avg'].round,
+        :apm => apm,
         :bnetid => id
       }
       if Ggplayer.where(bnetid: id).length == 1
@@ -166,6 +104,43 @@ module StarcraftApi
         player.save
       end
       player
+    end
+
+  end
+
+  class Nios
+    attr_accessor :tag, :name, :members
+
+    def clan tag
+      request = RestClient.get("http://nios.kr/sc2/us/clan/detail/#{tag}", :user_agent => 'Chrome')
+      html = Nokogiri::HTML(request.body)
+      @members = []
+      html.css(".name > a").each do |url|
+        member = parse_player(url.attr('href'))
+        @members << StarcraftApi::StarcraftPlayer.new.save_player(member[:name],member[:id],member[:realm])
+      end
+      player = @members[0]
+      player = JSON.parse(RestClient.get("https://us.api.battle.net/sc2/profile/#{player[:bnet_id]}/#{player[:realm]}/#{player[:name]}/?locale=en_US&apikey=u6asyvg57kuru6gbsu37wxbmfd4djv9y").body)
+      @tag = player["clanTag"]
+      @name = player["clanName"]
+      if Clan.where(tag:player["clanTag"]).length == 0
+        clan = Clan.new(tag:player["clanTag"],name:player["clanName"],region:player["realm"])
+        clan.save
+        Player.where(clan_tag:player["clanTag"]).update_all(clan_id:clan.id)
+      end
+    end
+
+    def parse_player url
+      if url.class == String
+        parts = url.to_s.split("/")
+      else
+        parts = url.attr("href").split("/")
+      end
+      profile = {
+        :name => parts[-1],
+        :realm => parts[-2],
+        :id => parts[-3]
+      }
     end
 
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224224918) do
+ActiveRecord::Schema.define(version: 20150225012711) do
 
   create_table "clans", force: true do |t|
     t.string   "name"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 20150224224918) do
     t.text     "season"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "clan_id"
+    t.string   "clan_tag"
   end
 
   create_table "team_members", force: true do |t|

@@ -1,3 +1,3 @@
 class ClanSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :tag, :name, :players
 end

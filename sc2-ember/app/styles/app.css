@@ -1,0 +1,140 @@
+#searchClanButton {
+  -webkit-transition: all 500ms;
+}
+.clan-search {
+  width: 40%;
+  margin-left: 30%;
+  position: relative;
+}
+.clan-search > .icon {
+  margin-left: 10px !important;
+  margin-right: -10px !important;
+}
+.player-row {
+  padding: 8px 5px !important;
+}
+.player-row .header {
+  font-size: 18px;
+  margin: 6px 0 !important;
+}
+
+
+/* league icons */
+.league {
+  position: relative;
+  float: left;
+}
+.league-position {
+  height: 20px;
+  border: 2px solid #000000;
+  -webkit-border-radius: 2px;
+  padding: 2px 4px;
+  font-size: 12px;
+  position: relative;
+  text-align: center;
+  width: 30px;
+  line-height: 13px;
+  background: #000000;
+  box-shadow: inset 0 0 4px gold, 0 0 6px gold;
+  color: gold;
+  bottom: -5px;
+  right: -5px;
+  position: absolute;
+}
+.league-big {
+  height: 100px;
+  width: 98px;
+}
+.league-mid {
+  height: 48px;
+  width: 44px;
+  background-position-x: -100px;
+}
+.league-small {
+  height: 28px;
+  width: 26px;
+  background-position-x: -144px;
+}
+.league[league="bronze"] {
+  background-image: url(images/bronze.png);
+}
+.league[league="silver"] {
+  background-image: url(images/silver.png);
+}
+.league[league="gold"] {
+  background-image: url(images/gold.png);
+}
+.league[league="platinum"] {
+  background-image: url(images/platinum.png);
+}
+.league[league="diamond"] {
+  background-image: url(images/diamond.png);
+}
+.league[league="master"] {
+  background-image: url(images/master.png);
+}
+.league[league="grandmaster"] {
+  background-image: url(images/grandmaster.png);
+}
+.league-big[rank="top8"] {
+  background-position-y: -315px;
+}
+.league-big[rank="top25"] {
+  background-position-y: -210px;
+}
+.league-big[rank="top50"] {
+  background-position-y: -103px;
+}
+.league-big[rank="top100"] {
+  background-position-y: 2px;
+}
+.league-mid[rank="top8"] {
+  background-position-y: -149px;
+}
+.league-mid[rank="top25"] {
+  background-position-y: -99px;
+}
+.league-mid[rank="top50"] {
+  background-position-y: -49px;
+}
+.league-mid[rank="top100"] {
+  background-position-y: 2px;
+}
+.league-small[rank="top8"] {
+  background-position-y: -90px;
+}
+.league-small[rank="top25"] {
+  background-position-y: -60px;
+}
+.league-small[rank="top50"] {
+  background-position-y: -30px;
+}
+.league-small[rank="top100"] {
+  background-position-y: 0px;
+}
+
+/** Races **/
+
+.race-small {
+  width: 35px;
+  height: 28px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+.protoss-small {
+  background-image: url(protoss-small.png);
+  padding: 0 2px 0 0 !important;
+  margin-top: -2px;
+  margin-right: 2px;
+  background-position: 5px -1px;
+}
+.zerg-small {
+  background-image: url(zerg-small.png);
+  margin-top: -1px !important;
+  padding-left: 2px !important;
+}
+.terran-small {
+  background-image: url(terran-small.png);
+  padding-left: 0px !important;
+}

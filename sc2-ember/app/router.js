@@ -6,6 +6,9 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.resource('clan', {path:'/:tag'}, function() {
+    this.route('player',{path:':player'});
+  });
 });
 
 export default Router;
