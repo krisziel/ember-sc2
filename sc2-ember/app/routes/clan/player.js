@@ -9,25 +9,9 @@ export default Ember.Route.extend({
 
   },
   setupController: function (controller, model) {
-    $('.ladders').fadeOut();
+    Ember.$('.ladders').fadeOut();
+    Ember.$('#laddersLoading').css({display:'block'});
     var _this = this;
-    var rank = function(rank){
-      var r = "100";
-      if(rank > 50) {
-        r = "100";
-      } else if(rank > 25) {
-        r = "50";
-      } else if(rank > 8) {
-        r = "25";
-      } else {
-        r = "8";
-      }
-      return "top" + r;
-    };
-    var league = function(league){
-      var leagues = ["bronze","silver","gold","platinum","diamond","master","grandmaster"];
-      return leagues[league];
-    };
     controller.set('model', model);
     var params = this.get('controller.model');
     Ember.$('.player-row').removeClass('active');
@@ -149,7 +133,8 @@ export default Ember.Route.extend({
       }
       _this.set('controller.ladders',ladderData);
     }).then(function(){
-      $('.ladders').fadeIn();
+      Ember.$('#laddersLoading').css({display:'none'});
+      Ember.$('.ladders').fadeIn();
     });
   }
 });
