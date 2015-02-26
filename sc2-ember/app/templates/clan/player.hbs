@@ -34,7 +34,7 @@
       </thead>
       <tbody>
         {{#each ladder in ladders.HOTS}}
-          <tr>
+          <tr {{action 'loadLadder' ladder.ladder.id}}>
             <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
             <td>{{ladder.ladder.name}}</td>
             <td>{{ladder.ladder.rank}}</td>
@@ -54,7 +54,7 @@
       </thead>
       <tbody>
         {{#each ladder in ladders.WOL}}
-          <tr>
+          <tr {{action 'loadLadder' ladder.ladder.id}}>
             <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
             <td>{{ladder.ladder.name}}</td>
             <td>{{ladder.ladder.rank}}</td>
@@ -64,4 +64,8 @@
     </table>
   {{/if}}
 </div>
-{{outlet}}
+<div class="ladder">
+  {{#each team in ladderData}}
+    {{team.character.displayName}}
+  {{/each}}
+</div>

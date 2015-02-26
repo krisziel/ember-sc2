@@ -2,23 +2,18 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model:function(params){
-    console.log(params);
     return params;
   },
-  ladders:function(){
-
-  },
   setupController: function (controller, model) {
+    var _this = this;
     Ember.$('.ladders').fadeOut();
     Ember.$('#laddersLoading').css({display:'block'});
-    var _this = this;
     controller.set('model', model);
+    controller.set('ladderData',[]);
     var params = this.get('controller.model');
     Ember.$('.player-row').removeClass('active');
     Ember.$('.player-row[name="' + params.player.toLowerCase() + '"]').addClass('active');
     setTimeout(function(){ Ember.$('.player-window').css({display:'inherit'}); },500);
-    var max = Ember.$(window).innerHeight()-160;
-    Ember.$('#memberList').css({maxHeight:max});
     Ember.$('#memberColumn').addClass('left');
     var player;
     Ember.$.each(this.modelFor('clan').players,function(i,p){
@@ -66,60 +61,8 @@ export default Ember.Route.extend({
             characters.push(char.displayName);
           });
           Ember.$.each(ladder.ladder,function(i,random_ladder){
-            var type = "";
-            var mmq = random_ladder.matchMakingQueue;
-            var insertIndex = 0;
-            if(mmq.match("TWOS")) {
-              insertIndex = 1;
-              if(characters.length === 2) {
-                type = "2v2 Arranged";
-              } else {
-                type = "2v2 Random";
-              }
-            } else if(mmq.match("THREES")) {
-              insertIndex = 2;
-              if(characters.length === 3) {
-                type = "3v3 Arranged";
-              } else {
-                type = "3v3 Random";
-              }
-            } else if(mmq.match("FOURS")) {
-              insertIndex = 3;
-              if(characters.length === 4) {
-                type = "4v4 Arranged";
-              } else {
-                type = "4v4 Random";
-              }
-            } else {
-              insertIndex = 0;
-              type = "1v1";
-            }
-            var expansion = "";
-            var info = random_ladder;
-            if(random_ladder.matchMakingQueue.substring(0,4) === "HOTS") {
-              expansion = "HOTS";
-            } else {
-              expansion = "WOL";
-            }
-            var ladderInfo = {
-              name:info.ladderName,
-              id:info.ladderId,
-              rank:info.rank,
-              league:info.league.toLowerCase(),
-              type:type,
-              wins:info.wins,
-              losses:info.losses,
-              expansion:expansion,
-              rankRange:rank(info.rank)
-            }
-            var thisLadder = {
-              ladder:ladderInfo,
-              characters:{
-                string:characters.join(", "),
-                list:ladder.characters
-              }
-            }
-            ladderData[expansion][insertIndex].push(thisLadder);
+            var ladder = parseLadder(random_ladder,characters);
+            ladderData[ladder.expansion][ladder.insertIndex].push(ladder.ladder);
           });
         }
       });
