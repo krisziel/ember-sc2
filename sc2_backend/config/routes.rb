@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   get 'ladder/:player' => 'ladder#show'
 
+  get 'middleman' => 'middleman#load'
+
 end

@@ -10,4 +10,42 @@
     </div>
   {{/each}}
 </div>
+<div class="ladders">
+  <table class="ui celled striped table inverted purple">
+    <thead>
+      <tr>
+        <th>Heart of the Swarm</th>
+        <th>Ladder Name</th>
+        <th>Ladder Rank</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each ladder in ladders.HOTS}}
+        <tr>
+          <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
+          <td>{{ladder.ladder.name}}</td>
+          <td>{{ladder.ladder.rank}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <table class="ui celled striped table inverted teal">
+    <thead>
+      <tr>
+        <th>Wings of Liberty</th>
+        <th>Ladder Name</th>
+        <th>Ladder Rank</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each ladder in ladders.WOL}}
+        <tr>
+          <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
+          <td>{{ladder.ladder.name}}</td>
+          <td>{{ladder.ladder.rank}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
 {{outlet}}

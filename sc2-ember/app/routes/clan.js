@@ -3,28 +3,6 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   model:function(params){
     return Ember.$.getJSON('http://localhost:3000/clan/' + params.tag).then(function(response){
-      var league = function(league){
-        var leagues = ["bronze","silver","gold","platinum","diamond","master","grandmaster"];
-        return leagues[league];
-      }
-      var rank = function(rank){
-        var r = "100";
-        if(rank > 50) {
-          r = "100";
-        } else if(rank > 25) {
-          r = "50";
-        } else if(rank > 8) {
-          r = "25";
-        } else {
-          r = "8";
-        }
-        return "top" + r;
-      }
-      var race = {
-        "p":"protoss",
-        "t":"terran",
-        "z":"zerg"
-      }
       var players = response.clan[2];
       $.each(players,function(i,player){
         player['ggplayer']['most_played_race'] = race[player['ggplayer']['most_played_race']];

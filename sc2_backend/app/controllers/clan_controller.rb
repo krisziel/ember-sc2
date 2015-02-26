@@ -20,6 +20,7 @@ class ClanController < ApplicationController
   def create
     clan = StarcraftApi::Nios.new
     clan.clan(params[:tag])
+    render json: clan
   end
 
 end
