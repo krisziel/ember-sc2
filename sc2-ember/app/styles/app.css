@@ -67,7 +67,9 @@ body {
   font-size: 28px;
 }
 .top-leagues {
-  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  width: 520px;
   height: 170px;
 }
 .top-league {

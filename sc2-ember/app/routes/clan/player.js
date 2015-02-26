@@ -9,8 +9,7 @@ export default Ember.Route.extend({
 
   },
   setupController: function (controller, model) {
-    console.log(controller);
-    console.log(model);
+    $('.ladders').fadeOut();
     var _this = this;
     var rank = function(rank){
       var r = "100";
@@ -149,6 +148,8 @@ export default Ember.Route.extend({
         "HOTS":hots
       }
       _this.set('controller.ladders',ladderData);
+    }).then(function(){
+      $('.ladders').fadeIn();
     });
   }
 });
