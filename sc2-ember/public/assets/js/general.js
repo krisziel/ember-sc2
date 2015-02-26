@@ -20,3 +20,8 @@ var race = {
   "t":"terran",
   "z":"zerg"
 }
+function updateHeight() {
+  var height = ($(window).height() - 95);
+  $('#memberList').css({maxHeight:height-52});
+  $('.player-window').css({maxHeight:height});
+}

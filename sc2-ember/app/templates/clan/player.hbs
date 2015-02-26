@@ -11,41 +11,45 @@
   {{/each}}
 </div>
 <div class="ladders">
-  <table class="ui celled striped table inverted purple">
-    <thead>
-      <tr>
-        <th>Heart of the Swarm</th>
-        <th>Ladder Name</th>
-        <th>Ladder Rank</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each ladder in ladders.HOTS}}
+  {{#if ladders.HOTS}}
+    <table class="ui celled striped table inverted purple">
+      <thead>
         <tr>
-          <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
-          <td>{{ladder.ladder.name}}</td>
-          <td>{{ladder.ladder.rank}}</td>
+          <th>Heart of the Swarm</th>
+          <th>Ladder Name</th>
+          <th>Ladder Rank</th>
         </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  <table class="ui celled striped table inverted teal">
-    <thead>
-      <tr>
-        <th>Wings of Liberty</th>
-        <th>Ladder Name</th>
-        <th>Ladder Rank</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each ladder in ladders.WOL}}
+      </thead>
+      <tbody>
+        {{#each ladder in ladders.HOTS}}
+          <tr>
+            <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
+            <td>{{ladder.ladder.name}}</td>
+            <td>{{ladder.ladder.rank}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/if}}
+  {{#if ladders.WOL}}
+    <table class="ui celled striped table inverted teal">
+      <thead>
         <tr>
-          <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
-          <td>{{ladder.ladder.name}}</td>
-          <td>{{ladder.ladder.rank}}</td>
+          <th>Wings of Liberty</th>
+          <th>Ladder Name</th>
+          <th>Ladder Rank</th>
         </tr>
-      {{/each}}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {{#each ladder in ladders.WOL}}
+          <tr>
+            <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
+            <td>{{ladder.ladder.name}}</td>
+            <td>{{ladder.ladder.rank}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/if}}
 </div>
 {{outlet}}

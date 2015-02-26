@@ -1,3 +1,6 @@
+body {
+  overflow: hidden;
+}
 #searchClanButton {
   -webkit-transition: all 500ms;
 }
@@ -53,6 +56,7 @@
   -o-border-radius: 3px;
   border-radius: 3px;
   display: none;
+  overflow: auto;
 }
 .player-window > h1 {
   font-size: 28px;

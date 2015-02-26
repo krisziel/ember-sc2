@@ -11,8 +11,6 @@ export default Ember.Controller.extend({
             $('#searchClanButton').removeClass('blue').addClass('green').html('Save Clan');
             $('.clan-search input').on('change',function(){ $('#searchClanButton').removeClass('green').addClass('blue').html('Search for Clan') })
           } else if(response.tag) {
-            console.log(response);
-            console.log(response.tag);
             _this.transitionToRoute('clan',response.tag)
           }
         });
@@ -22,7 +20,7 @@ export default Ember.Controller.extend({
             $('#searchClanButton').removeClass('blue').addClass('green').html('Save Clan');
             $('.clan-search input').on('change',function(){ $('#searchClanButton').removeClass('green').addClass('blue').html('Search for Clan') })
           } else if(response.clan) {
-            _this.transitionToRoute('clan',response.clan.tag)
+            _this.transitionToRoute('clan',response.clan[0])
           }
         });
       }
