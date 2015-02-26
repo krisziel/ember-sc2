@@ -12,11 +12,13 @@
   <div class="ui divided very relaxed list sixteen wide column row" id="memberList">
     {{#each player in model.players}}
       <div class="item player-row" {{action 'selectPlayer' player }} {{bind-attr name=player.lowercasename}}>
-        <div class="league league-mid" {{bind-attr league=player.highest_league_type rank=player.highest_league_rank}}></div>
-        <div class="content" style="padding-left: 10px;float:left;">
-          <div class="header">{{player.name}}</div>
-          <div class="description">{{player.highest_league_type}} {{player.ggplayer.most_played_race}}</div>
-        </div>
+        {{#link-to 'clan.player' player.name}}
+          <div class="league league-mid" {{bind-attr league=player.highest_league_type rank=player.highest_league_rank}}></div>
+          <div class="content" style="padding-left: 10px;float:left;">
+            <div class="header">{{player.name}}</div>
+            <div class="description">{{player.highest_league_type}} {{player.ggplayer.most_played_race}}</div>
+          </div>
+        {{/link-to}}
       </div>
     {{/each}}
   </div>

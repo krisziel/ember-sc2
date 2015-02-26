@@ -2,12 +2,15 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model:function(params){
+    console.log(params);
     return params;
   },
   ladders:function(){
 
   },
   setupController: function (controller, model) {
+    console.log(controller);
+    console.log(model);
     var _this = this;
     var rank = function(rank){
       var r = "100";

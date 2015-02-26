@@ -16,17 +16,22 @@ body {
 .player-row {
   padding: 8px 5px !important;
 }
+.player-row .container {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
 .player-row.active {
   background: rgba(39, 41, 43, 0.15);
 }
 .player-row .header {
+  padding-top: 3px;
   font-size: 18px;
-  margin: 12px 0 0 0 !important;
 }
 .player-row .description {
   font-size: 14px;
-  margin: 20px 0 0 0 !important;
   float: left;
+  margin-top: 2px;
 }
 #memberList {
   border: 1px solid rgba(39, 41, 43, 0.15);
@@ -66,14 +71,16 @@ body {
   height: 170px;
 }
 .top-league {
-  width: 130px;
+  width: 25%;
   height: 170px;
   float: left;
   position: relative;
   display: block;
+  min-width: 120px;
 }
 .top-league > .league {
   margin-left: 16px;
+  margin-right: 50px;
 }
 .league-row {
   padding: 5px 11px !important;
