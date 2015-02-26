@@ -86,5 +86,67 @@ function parseLadder(ladder,characters) {
   }
 }
 function parseFullLadder(ladder) {
-
+  var teams = [];
+  var currentTeam = {};
+  $.each(ladder,function(i,player){
+    if((player.joinTimestamp === currentTeam.joinTimestamp)&&(player.wins === currentTeam.wins)&&(player.losses === currentTeam.losses)&&(player.points === currentTeam.points)) {
+      currentTeam.members.push(player.character);
+        currentTeam.memberString += ", " + player.character.displayName;
+    } else {
+      if(currentTeam.members) {
+        teams.push(currentTeam);
+      }
+      var clan = "";
+      if(player.character.clanTag.length > 0) {
+        clan = '[' + player.character.clanTag + '] ';
+      }
+      currentTeam = {
+        rank:(teams.length + 1),
+        members:[player.character],
+        joinTimestamp:player.joinTimestamp,
+        points:player.points,
+        wins:player.wins,
+        losses:player.losses,
+        highestRank:player.highestRank,
+        memberString:clan+player.character.displayName
+      };
+    }
+  });
+  return teams;
 }
+
+// "ladderMembers" : [ {
+//   "character" : {
+//     "id" : 277751,
+//     "realm" : 1,
+//     "displayName" : "Poke",
+//     "clanName" : "Spongy KittenZ",
+//     "clanTag" : "KttnZ",
+//     "profilePath" : "/profile/277751/1/Poke/"
+//   },
+//   "joinTimestamp" : 1424569441,
+//   "points" : 589.0,
+//   "wins" : 30,
+//   "losses" : 15,
+//   "highestRank" : 1,
+//   "previousRank" : 0,
+//   "favoriteRaceP1" : "ZERG",
+//   "favoriteRaceP2" : "TERRAN"
+// }, {
+//   "character" : {
+//     "id" : 540606,
+//     "realm" : 1,
+//     "displayName" : "NightLight",
+//     "clanName" : "Spongy KittenZ",
+//     "clanTag" : "KttnZ",
+//     "profilePath" : "/profile/540606/1/NightLight/"
+//   },
+//   "joinTimestamp" : 1424569441,
+//   "points" : 589.0,
+//   "wins" : 30,
+//   "losses" : 15,
+//   "highestRank" : 1,
+//   "previousRank" : 0,
+//   "favoriteRaceP1" : "ZERG",
+//   "favoriteRaceP2" : "TERRAN"
+// }, {

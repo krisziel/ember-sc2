@@ -34,7 +34,7 @@
       </thead>
       <tbody>
         {{#each ladder in ladders.HOTS}}
-          <tr {{action 'loadLadder' ladder.ladder.id}}>
+          <tr class="ladder-row" {{action 'loadLadder' ladder.ladder.id}} {{bind-attr data-id=ladder.ladder.id}}>
             <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
             <td>{{ladder.ladder.name}}</td>
             <td>{{ladder.ladder.rank}}</td>
@@ -54,7 +54,7 @@
       </thead>
       <tbody>
         {{#each ladder in ladders.WOL}}
-          <tr {{action 'loadLadder' ladder.ladder.id}}>
+          <tr class="ladder-row" {{action 'loadLadder' ladder.ladder.id}} {{bind-attr data-id=ladder.ladder.id}}>
             <td {{bind-attr title=ladder.characters.string}} class="league-row"><div class="league league-small" {{bind-attr league=ladder.ladder.league rank=ladder.ladder.rankRange}}></div>{{ladder.ladder.type}}</td>
             <td>{{ladder.ladder.name}}</td>
             <td>{{ladder.ladder.rank}}</td>
@@ -65,7 +65,26 @@
   {{/if}}
 </div>
 <div class="ladder">
-  {{#each team in ladderData}}
-    {{team.character.displayName}}
-  {{/each}}
+  {{#if this.ladderData}}
+    <table class="ui celled striped table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Team Members</th>
+          <th>Points</th>
+          <th>Wins</th>
+          <th>Losses</th>
+        </tr>
+      </thead>
+      {{#each team in this.ladderData}}
+        <tr>
+          <td class="ladder-row">{{team.rank}}</td>
+          <td>{{team.memberString}}</td>
+          <td>{{team.points}}</td>
+          <td>{{team.wins}}</td>
+          <td>{{team.losses}}</td>
+        </tr>
+      {{/each}}
+    </table>
+  {{/if}}
 </div>

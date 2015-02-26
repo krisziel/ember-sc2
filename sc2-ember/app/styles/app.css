@@ -92,6 +92,9 @@ body {
   margin: 0;
   margin-right: 7px;
 }
+.ladder {
+  margin-top: 15px;
+}
 
 /* league icons */
 .league {
